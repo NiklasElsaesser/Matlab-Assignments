@@ -53,6 +53,7 @@ classdef Automobilfederung < handle
                     h = varargin{i + 1};
                 elseif strcmp(varargin{i}, 'y0')
                     y = varargin{i + 1};
+                    y = y(:);
                 else
                     warning("Invalid property: "+varargin{i});
                 end
@@ -69,11 +70,11 @@ classdef Automobilfederung < handle
                 end
 
                 k1 = obj.rhs(t,y);% calculate the slopes
-                k2 = obj.rhs(t+(0.5*h),y+((h/2)*k1'));
-                k3 = obj.rhs(t+(0.5*h),y+(0.5*h*k2'));
-                k4 = obj.rhs(t+h,y+(h*k3'));
+                k2 = obj.rhs(t + (0.5*h), y+ ((h/2) * k1') );
+                k3 = obj.rhs(t + (0.5*h), y+ (0.5*h*k2') );
+                k4 = obj.rhs(t + h, y+ (h*k3'));
                 
-                ynew = y+((((1/6)*k1')+((1/3)*k2')+((1/3)*k3')+((1/6)*k4'))*h);% calculate the ynew
+                ynew = y+((((1/6)*k1') + ((1/3) * k2') + ((1/3) * k3') + ((1/6) * k4') ) *h);% calculate the ynew
                 
                 t = t + h;
                 y = ynew;
