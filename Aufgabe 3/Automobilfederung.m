@@ -72,7 +72,7 @@ classdef Automobilfederung < handle
                 elseif strcmp(varargin{i}, 'stepsize')
                     h = varargin{i + 1};
                 elseif strcmp(varargin{i}, 'y0')
-                    y = varargin{i + 1};
+                    y = varargin{i + 1};    % no y=y(:) operation, every matrix is transposed
                 else
                     warning("Invalid property: "+varargin{i});
                 end
@@ -88,12 +88,12 @@ classdef Automobilfederung < handle
                     h = tfinal - t; % calculating h
                 end
 
-                k1 = obj.rhs(t,y);% calculate the slopes
-                k2 = obj.rhs(t + (0.5*h), y+ ((h/2) * k1') );
-                k3 = obj.rhs(t + (0.5*h), y+ (0.5*h*k2') );
-                k4 = obj.rhs(t + h, y+ (h*k3'));
+                k1 = rhs(obj,t,y);  % calculating the slopes
+                k2 = rhs(obj,t + (0.5*h), y+ ((h/2) * k1') );
+                k3 = rhs(obj,t + (0.5*h), y+ (0.5*h*k2') );
+                k4 = rhs(obj,t + h, y+ (h*k3'));
                 
-                ynew = y + (((k1'/6) + (k2'/3) + (k3'/3) + (k4'/6)) * h);% calculate the ynew
+                ynew = y + (((k1'/6) + (k2'/3) + (k3'/3) + (k4'/6)) * h);   % calculate the ynew
                 
                 t = t + h;
                 y = ynew;
