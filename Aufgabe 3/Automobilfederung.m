@@ -1,3 +1,23 @@
+%function [output1,output2] = function_name(input1,input2,input3)
+%FUNCTION_NAME - Calculates Carsuspension with Matrix Mulitplications and
+%                 Displays the result
+%
+% Outputs:
+%    tsimout - x-Axis Values
+%    ysimout - y-Axis Values
+%
+% Other m-files required: none
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: runScript.m
+
+% Author:   Jannik Wiessler; Niklas Elsaesser
+% email:    jannik.wiessler@daimler.com; inf20184@lehre.dhbw-stuttgart.de
+% Website:  https://github.com/NiklasElsaesser/IN_Elsaesser_Niklas_4842156
+% May 2022;
+
+%------------- BEGIN CODE --------------
 classdef Automobilfederung < handle
     properties
         c1 {mustBeNumeric}
@@ -53,7 +73,6 @@ classdef Automobilfederung < handle
                     h = varargin{i + 1};
                 elseif strcmp(varargin{i}, 'y0')
                     y = varargin{i + 1};
-                    y = y(:);
                 else
                     warning("Invalid property: "+varargin{i});
                 end
@@ -74,7 +93,7 @@ classdef Automobilfederung < handle
                 k3 = obj.rhs(t + (0.5*h), y+ (0.5*h*k2') );
                 k4 = obj.rhs(t + h, y+ (h*k3'));
                 
-                ynew = y+((((1/6)*k1') + ((1/3) * k2') + ((1/3) * k3') + ((1/6) * k4') ) *h);% calculate the ynew
+                ynew = y + (((k1'/6) + (k2'/3) + (k3'/3) + (k4'/6)) * h);% calculate the ynew
                 
                 t = t + h;
                 y = ynew;
