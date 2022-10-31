@@ -1,5 +1,5 @@
-Hausaufgaben für Matlab/Simulink
-(Klausur "Ersatz")
+#Assignments for Matlab/Simulink
+(Exam Replacement)
 
 Currently holding:
 - Assignment 1 "Newton-Raphson-Hausaufgabe"
